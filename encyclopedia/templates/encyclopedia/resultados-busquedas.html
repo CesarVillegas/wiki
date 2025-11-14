@@ -1,0 +1,19 @@
+{% extends "encyclopedia/layout.html" %}
+
+{% block title %}
+    Encyclopedia
+{% endblock %}
+
+{% block body %}
+
+{% if entradas %}
+    <h3>Resultados de búsqueda para "{{ consulta }}"</h3>
+    <ul>
+        {% for entrada in entradas %}
+            <li><a href="{% url 'encyclopedia:entrada' entrada %}">{{ entrada }}</a></li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <h3>No se encontraron resultados para "{{ consulta }}"</h3>
+{% endif %}
+{% endblock %}

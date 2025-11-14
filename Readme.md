@@ -24,6 +24,44 @@ Update index.html such that, instead of merely listing the names of all pages in
 
     git add *
     git commit -m "mensaje"
-    git push origin IndexPage
-    git checkout -b IndexPage
-    
+    git checkout main
+    git merge IndexPage
+    git push origin main
+
+
+#### Search:
+
+* Allow the user to type a query into the search box in the sidebar to search for an encyclopedia entry.
+* If the query matches the name of an encyclopedia entry, the user should be redirected to that entry’s page.
+* If the query does not match the name of an encyclopedia entry, the user should instead be taken to a search results page that displays a list of all encyclopedia entries that have the query as a substring. For example, if the search query were ytho, then Python should appear in the search results.
+* Clicking on any of the entry names on the search results page should take the user to that entry’s page.
+
+flowchart TD
+    A[Search] --> B{¿If the query matches the name?}
+    B -->|Sí| C[redirected to that entry’s page.]
+    B -->|No| D{¿the query as a substring.?}
+    D --> E[Fin]
+    D --> E[Fin]
+
+
+flowchart TD
+    Z((Inicio)) --> A["Ingresar búsqueda"]
+    A --> B{"¿La búsqueda coincide exactamente con una entrada?"}
+    B -- Sí --> C["Redirigir a la entrada correspondiente"]
+    B -- No --> D{"¿La búsqueda coincide parcialmente con alguna entrada?"}
+    D -- Sí --> E["Mostrar lista de resultados coincidentes"]
+    E --> |Click| C["ir a la entrada"]
+    D -- No --> F["Mostrar mensaje: 'No se encontraron resultados'"]
+    C --> H((Fin))
+    F --> H
+
+
+
+
+    flowchart LR
+    A((Inicio)) --> B[Ingresar datos]
+    B --> C{Datos válidos?}
+    C -->|Sí| D[Procesar]
+    C -->|No| E[Mostrar error]
+    E --> B
+    D --> F((Fin))
