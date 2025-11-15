@@ -2,12 +2,14 @@ from django.shortcuts import render
 import markdown
 
 from . import util
+from .forms import NuevoSearchForm
 
 
 # Vista para la página de índice que lista todas las entradas de la enciclopedia
 def index(request):
     return render(request, "encyclopedia/index.html", {
-        "entries": util.list_entries()
+        "entries": util.list_entries(),
+        "form": NuevoSearchForm()
     })
 
 
@@ -22,7 +24,11 @@ def entrada(request, title):
     # Si el documento existe, convertirlo a HTML
     doc_html = markdown.markdown(doc)
 
-    return render(request, "encyclopedia/entrada.html", {"doc": doc_html, "title": title})
+    return render(request, "encyclopedia/entrada.html", {
+        "doc": doc_html,
+        "title": title, 
+        "form": NuevoSearchForm()
+    })
 
 
 # Vista para manejar la búsqueda de entradas en la enciclopedia
@@ -52,10 +58,12 @@ def busqueda(request):
         
         return render(request, "encyclopedia/resultados-busquedas.html", {
             "consulta": consulta,
-            "entradas": entradas_encontradas
+            "entradas": entradas_encontradas,
+            "form": NuevoSearchForm()
         })
     
     # Si no es un POST, redirigir al índice
     return render(request, "encyclopedia/index.html", {
-        "entries": util.list_entries()
+            "form": NuevoSearchForm(),
+            "entries": util.list_entries()
     })

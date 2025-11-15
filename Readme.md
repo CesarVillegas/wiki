@@ -36,14 +36,7 @@ Update index.html such that, instead of merely listing the names of all pages in
 * If the query does not match the name of an encyclopedia entry, the user should instead be taken to a search results page that displays a list of all encyclopedia entries that have the query as a substring. For example, if the search query were ytho, then Python should appear in the search results.
 * Clicking on any of the entry names on the search results page should take the user to that entry’s page.
 
-flowchart TD
-    A[Search] --> B{¿If the query matches the name?}
-    B -->|Sí| C[redirected to that entry’s page.]
-    B -->|No| D{¿the query as a substring.?}
-    D --> E[Fin]
-    D --> E[Fin]
-
-
+~~~mermaid
 flowchart TD
     Z((Inicio)) --> A["Ingresar búsqueda"]
     A --> B{"¿La búsqueda coincide exactamente con una entrada?"}
@@ -54,14 +47,8 @@ flowchart TD
     D -- No --> F["Mostrar mensaje: 'No se encontraron resultados'"]
     C --> H((Fin))
     F --> H
+~~~
 
 
 
-
-    flowchart LR
-    A((Inicio)) --> B[Ingresar datos]
-    B --> C{Datos válidos?}
-    C -->|Sí| D[Procesar]
-    C -->|No| E[Mostrar error]
-    E --> B
-    D --> F((Fin))
+Se incorpora una clase forms de django en el layout del proyecto para realizar las búsquedas, utilizando asi validaciones del lado del cliente y servidor.
