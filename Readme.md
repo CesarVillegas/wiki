@@ -80,4 +80,5 @@ flowchart TD
 Algunos apuntes:
 
 * Se crea formulario personalizado para crear una nueva entrada a la enciclopedia.
-* Se incluye al formulario la clase css form-control de bootstrap.
+* Se incluye al formulario la clase css form-control de bootstrap. (librería que esta incorporado en el archivo layout.html)
+* Se incluyen otras clases bootstrap para mejorar el diseño por ejemplo mt-3 (margin-top) o btn-primary.

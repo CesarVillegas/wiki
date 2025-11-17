@@ -5,16 +5,17 @@
 {% endblock %}
 
 {% block body %}
+<div class="container mt-3">
     <h1>New Pages</h1>
 
     {% if error %}
-        <p style="color: red;">{{ error }}</p>
+         <p class="text-danger">{{ error }}</p>
     {% endif %}
     
    <form action="{% url 'encyclopedia:create' %}" method="post">
         {% csrf_token %} 
         {{ formEntrada }}
-        <button type="submit">Create Entry</button>
+        <button type="submit" class="btn btn-primary mt-3">Create Entry</button>
     </form>
-
+</div>
 {% endblock %}
