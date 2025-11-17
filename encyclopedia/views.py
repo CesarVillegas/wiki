@@ -1,8 +1,9 @@
 from django.shortcuts import render
 import markdown
-
+from django.urls import reverse
+from django.http import HttpResponseRedirect
 from . import util
-from .forms import NuevoSearchForm
+from .forms import NuevoSearchForm, NuevaEntradaForm
 
 
 # Vista para la página de índice que lista todas las entradas de la enciclopedia
@@ -67,3 +68,35 @@ def busqueda(request):
             "form": NuevoSearchForm(),
             "entries": util.list_entries()
     })
+
+
+# Vista para crear una nueva entrada en la enciclopedia
+def crear_entrada(request):
+
+    if request.method == "POST":
+        formEntrada = NuevaEntradaForm(request.POST)
+        if formEntrada.is_valid():
+            title = formEntrada.cleaned_data["title"]
+            content = formEntrada.cleaned_data["content"]
+            if util.save_entry(title, content):
+                # Se guardo exitosamente la nueva entrada
+                return HttpResponseRedirect(reverse("encyclopedia:entrada", args=[title]))
+            else :
+                return render(request, "encyclopedia/crear_entrada.html", {
+                    "error": "An entry with this title already exists.",
+                    "entries": util.list_entries(),
+                    "form": NuevoSearchForm(),
+                    "formEntrada":  formEntrada
+                })
+        else:  # Form is not valid
+            return render(request, "encyclopedia/crear_entrada.html", {
+                "entries": util.list_entries(),
+                "formEntrada":  formEntrada,
+                "form": NuevoSearchForm()
+            })
+    else:
+        return render(request, "encyclopedia/crear_entrada.html", {
+            "entries": util.list_entries(),
+            "formEntrada":  NuevaEntradaForm(),
+            "form": NuevoSearchForm()
+        })

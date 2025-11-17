@@ -52,3 +52,32 @@ flowchart TD
 
 
 Se incorpora una clase forms de django en el layout del proyecto para realizar las búsquedas, utilizando asi validaciones del lado del cliente y servidor.
+
+
+### NewPage:
+
+* Clicking “Create New Page” in the sidebar should take the user to a page where they can create a new encyclopedia entry.
+Users should be able to enter a title for the page and, in a textarea, should be able to enter the Markdown content for the page.
+Users should be able to click a button to save their new page.
+When the page is saved, if an encyclopedia entry already exists with the provided title, the user should be presented with an error message.
+Otherwise, the encyclopedia entry should be saved to disk, and the user should be taken to the new entry’s page.
+
+
+~~~mermaid
+flowchart TD
+    A[Sidebar: Create New Page - Click] --> B[Mostrar formulario de creación]
+    B --> C[Usuario ingresa Título y Contenido Markdown]
+    C --> D[Usuario pulsa Guardar]
+    D --> E{Servidor: ¿Título ya existe?}
+    E -- Sí --> F[Mostrar error: An entry with this title already exists.]
+    F --> B2[Volver a formulario con campos rellenados y mensaje de error]
+    B2 --> C
+    E -- No --> G[Guardar entrada en disco - filename = title]
+    G --> H[Redirigir a la página de la nueva entrada]
+    H --> I[Mostrar entrada renderizada desde Markdown a HTML]
+~~~
+
+Algunos apuntes:
+
+* Se crea formulario personalizado para crear una nueva entrada a la enciclopedia.
+* Se incluye al formulario la clase css form-control de bootstrap.

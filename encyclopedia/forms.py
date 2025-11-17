@@ -9,3 +9,23 @@ class NuevoSearchForm(forms.Form):
             }
         )
     )
+
+class NuevaEntradaForm(forms.Form):
+    title = forms.CharField(
+        label="Title",
+        widget=forms.TextInput(
+            attrs={
+                "placeholder": "Entry Title",
+                "class": "form-control"
+            }
+        )
+    )
+    content = forms.CharField(
+        label="Content",
+        widget=forms.Textarea(
+            attrs={
+                "placeholder": "Entry Content in Markdown",
+                "class": "form-control"
+            }
+        )
+    )
